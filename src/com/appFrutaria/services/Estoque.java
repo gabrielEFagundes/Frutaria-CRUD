@@ -38,9 +38,11 @@ public class Estoque {
 				double precoFruta = atendente.definirPreco();
 				
 				int qtdFruta = atendente.definirEstoque();
+				
+				double pesoFruta = atendente.definirPeso();
 
 				// Adiciona os valores no construtor da fruta, instânciando a fruta passada anteriormente por parâmetro
-				fruta = new Fruta(nomeFruta, precoFruta, qtdFruta);
+				fruta = new Fruta(nomeFruta, precoFruta, qtdFruta, pesoFruta);
 				
 				// Coloca a fruta no estoque
 				estoqueFrutas.add(fruta);

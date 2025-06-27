@@ -69,6 +69,14 @@ public class Atendente {
 		return estoqueFruta; // Retorna para o Estoque e é adicionado no ArrayList estoqueFrutas
 	}
 	
+	public double definirPeso() {
+		
+		System.out.println("\nDefina o peso da fruta: ");
+		double pesoFruta = scan.nextDouble();
+		
+		return pesoFruta;
+	}
+	
 	// Serve para mostrar todas as frutas que existem na lista estoqueFrutas
 	public void listarFrutas(List<Fruta> estoqueFrutas) {
 		
