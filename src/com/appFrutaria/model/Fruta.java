@@ -24,4 +24,10 @@ public class Fruta extends Produto {
 		this.peso = peso;
 	}
 	
+	public String toString() {
+		return String.format("| %-21s | %-15.2f | %-13d | %-13.2f |"
+					       + "\n+-------------------------------------------------------------------------+", 
+					       nome, preco, quantidade, peso);
+	}
+	
 }

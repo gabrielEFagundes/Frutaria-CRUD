@@ -1,11 +1,13 @@
 package com.appFrutaria.model;
 
+import com.appFrutaria.view.Atendente;
+
 public class Verdura extends Produto {
 	
 	private String tipo;
 	
 	public Verdura(String nome, double preco, int quantidade, String tipo) {
-		super();
+		super(nome, preco, quantidade);
 		this.tipo = tipo;
 	}
 	
@@ -20,6 +22,12 @@ public class Verdura extends Produto {
 	
 	public String getTipo() {
 		return this.tipo;
+	}
+	
+	public String toString() {
+		return String.format("| %-21s | %-15.2f | %-13d | %-13s |"
+			       + "\n+-------------------------------------------------------------------------+", 
+			       nome, preco, quantidade, tipo);
 	}
 
 }
