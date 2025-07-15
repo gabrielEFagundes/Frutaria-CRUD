@@ -42,5 +42,11 @@ public class Produto {
 	public int getQuantidade() {
 		return this.quantidade;
 	}
+	
+	public String toString() {
+		return ("\nNome do produto: " + nome
+				+ "\nPreço do produto: " + preco
+				+ "\nQuantidade do produto: " + quantidade);
+	}
 
 }

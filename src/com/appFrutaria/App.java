@@ -1,7 +1,7 @@
 package com.appFrutaria;
 
 import com.appFrutaria.view.Atendente;
-import com.appFrutaria.model.Fruta;
+import com.appFrutaria.model.*;
 import com.appFrutaria.services.Estoque;
 
 // Aqui é a Main, a classe que vai controlar tudo, nesse caso, mandar o que cada um deve fazer
@@ -12,7 +12,8 @@ public class App {
 		// Cria todas as instâncias anteriormente criadas
 		Atendente atendente = new Atendente();
 		Estoque estoque = new Estoque();
-		Fruta fruta = new Fruta();
+		Produto fruta = new Fruta();
+		Produto verdura = new Verdura();
 		
 		// Variável apenas para o loop
 		int opcaoMenu = 0;
@@ -24,7 +25,7 @@ public class App {
 			
 			// Envia os parâmetros necessários para o método gerenciarEstoque
 			// utilizando a instância estoque para acessar o estoque
-			estoque.gerenciarEstoque(opcaoMenu, atendente, fruta);
+			estoque.gerenciarEstoque(opcaoMenu, atendente, fruta, verdura);
 		} while(opcaoMenu != 0);
 		
 	}

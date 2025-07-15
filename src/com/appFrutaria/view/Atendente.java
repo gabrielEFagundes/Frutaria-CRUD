@@ -3,15 +3,18 @@ package com.appFrutaria.view;
 import java.util.List;
 import java.util.Scanner;
 
-import com.appFrutaria.model.Fruta;
+import com.appFrutaria.model.*;
 
 // Aqui é a interação com o usuário
 // Faz APENAS a intereção com o usuário, note que é a única classe com Scanner
 public class Atendente {
 
+	public final String RESET = "\033[0m";
+	public final String VERDE = "\033[0;32m";
+	public final String AMARELO = "\033[1;33m";
+	
 	Scanner scan;
 	
-	// Apenas instância o Scanner, dá pra fazer em uma só linha (onde cria o scan)
 	public Atendente() {
 		scan = new Scanner(System.in);
 		
@@ -25,82 +28,108 @@ public class Atendente {
 		return scan;
 	}
 	
-	// Classe do menu principal, para a interação do usuário
 	public int menuPrincipal() {
 		
-		System.out.println("\n--- Frutaria Fagundes ---");
-		System.out.printf("\n1- Cadastrar produto"
-				+ "\n2- Listar produtos"
-				+ "\n3- Remover produtos"
-				+ "\n0- Sair"
-				+ "\n-------------------------"
-				+ "\nSua escolha: ");
+		System.out.println("\n+----------- " + VERDE + "Frutaria Fagundes" + RESET + " --+"
+						+ "\n|" + AMARELO + " 1- " + RESET + "Cadastrar produto           |"
+						+ "\n|" + AMARELO + " 2- " + RESET + "Listar produtos             |"
+						+ "\n|" + AMARELO + " 3- " + RESET + "Remover produtos            |"
+						+ "\n|" + AMARELO + " 0- " + RESET + "Sair                        |"
+						+ "\n+--============================--+"
+						+ "\n Sua escolha: ");
 		
 		int escolhaMenu = scan.nextInt();
 		
-		return escolhaMenu; // Retorna o valor lá para a Main
+		return escolhaMenu;
 		
 	}
 	
-	// Método criado para a entrada de um nome para a fruta
-	public String definirNome() {
+	public int escolhaCadastro() {
+		System.out.print("\nO que você deseja cadastrar?"
+				+ "\n1- Fruta"
+				+ "\n2- Verdura"
+				+ "\nSua escolha: ");
 		
-		System.out.println("\nDefina o nome da fruta: ");
-		String nomeFruta = scan.next();
+		int escolha = scan.nextInt();
 		
-		return nomeFruta; // A String é retornada para o Estoque e é armazenada lá
+		return escolha;
 	}
 	
-	// Entrada de um preço para a fruta
-	public double definirPreco() {
+	public Produto cadastrarFruta(Produto fruta) {
+		scan.nextLine();
 		
-		System.out.println("\nDefina o preço da fruta: ");
+		System.out.print("\nDefina o nome da fruta: ");
+		String nomeFruta = scan.nextLine();
+		
+		System.out.print("\nDefina o preço da fruta: ");
 		double precoFruta = scan.nextDouble();
 		
-		return precoFruta; // Mesma coisa, o valor double volta para o Estoque e é armazenado
-	}
-	
-	// Entrada de um estoque para a fruta
-	public int definirEstoque() {
-		
-		System.out.println("\nDefina o estoque da fruta: ");
+		System.out.print("\nDefina o estoque da fruta: ");
 		int estoqueFruta = scan.nextInt();
 		
-		return estoqueFruta; // Retorna para o Estoque e é adicionado no ArrayList estoqueFrutas
-	}
-	
-	public double definirPeso() {
-		
-		System.out.println("\nDefina o peso da fruta: ");
+		System.out.print("\nDefina o peso da fruta: ");
 		double pesoFruta = scan.nextDouble();
 		
-		return pesoFruta;
+		fruta = new Fruta(nomeFruta, precoFruta, estoqueFruta, pesoFruta);
+		
+		return fruta;
 	}
 	
-	// Serve para mostrar todas as frutas que existem na lista estoqueFrutas
-	public void listarFrutas(List<Fruta> estoqueFrutas) {
+	public Produto cadastrarVerdura(Produto verdura) {
+		scan.nextLine();
 		
-		System.out.println("");
+		System.out.print("\nDefina o nome da verdura: ");
+		String nomeVerdura = scan.nextLine();
 		
-		// Note que eu iterei entre os valores do estoqueFrutas
-		// Sem isso, seria impresso apenas o endereço na memória do ArrayList
-		for(Fruta i : estoqueFrutas) {
-			System.out.println("Nome: " + i.getNome() + " | Preço: " + i.getPreco() + " | Quantidade: " + i.getQuantidade());
-			// O 'i' do tipo Fruta permite o acesso para todos os métodos da Fruta, é quase um objeto não instânciado de Fruta
-		}
+		System.out.print("\nDefina o preço da verdura: ");
+		double precoVerdura = scan.nextDouble();
+		
+		System.out.print("\nDefina o estoque da verdura: ");
+		int estoqueVerdura = scan.nextInt();
+		
+		System.out.print("\nDefina o tipo da verdura: ");
+		String tipoVerdura = scan.next();
+		
+		verdura = new Verdura(nomeVerdura, precoVerdura, estoqueVerdura, tipoVerdura);
+		
+		return verdura;
 	}
 	
+	public int listarEscolha() {
+		System.out.print("\nO que você deseja listar?"
+				+ "\n1- Frutas"
+				+ "\n2- Verduras"
+				+ "\nSua escolha: ");
+		
+		int escolha = scan.nextInt();
+		
+		return escolha;
+	}
 	
-	public int removerFrutas(List<Fruta> estoqueFruta) {
+	public void listarFrutas(Produto f) {
+		System.out.println(f);
 		
-		int cont = 1; // Serve apenas para mostrar um índice mais "amigável"
+	}
+	
+	public void listarVerduras(Produto v) {
+		System.out.println(v);
+	}
+	
+	public int escolhaRemover() {
+		System.out.println("\nQual produto você quer remover?"
+				+ "\n1- Fruta"
+				+ "\n2- Verdura"
+				+ "\nSua escolha: ");
+		
+		int escolha = scan.nextInt();
+		
+		return escolha;
+	}
+	
+	public int removerFruta(List<Produto> estoqueProdutos) {
+		
+		int cont = 1;
 		System.out.println("");
-		
-		// Novamente, eu iterei entre todos os valores de estoqueFrutas
-		for(Fruta i : estoqueFruta) {
-			System.out.println(cont + "- " + i.getNome());
-			cont++;
-		}
 		
 		System.out.println("\nDigite o índice da fruta para remover: ");
 		int nomeRemove = scan.nextInt();
@@ -112,7 +141,19 @@ public class Atendente {
 		// fique igualado com o valor interno do ArrayList
 		nomeRemove -= 1;
 		
-		return nomeRemove; // Retorna o valor para o Estoque, para remover da lista conforme o índice
+		return nomeRemove;
+	}
+	
+	public void erroDigitacao() {
+		System.err.println("\nErro! O digito não existe...");
+	}
+	
+	public void erroListaVazia() {
+		System.err.println("\nErro! A lista parece estar vazia...");
+	}
+	
+	public void erroNotFound() {
+		System.err.println("\nErro! O valor não foi encontrado...");
 	}
 	
 }

@@ -1,5 +1,5 @@
 package com.appFrutaria.services;
-import com.appFrutaria.model.Fruta;
+import com.appFrutaria.model.*;
 import com.appFrutaria.view.Atendente;
 
 import java.util.List;
@@ -9,62 +9,121 @@ import java.util.ArrayList;
 // Ele não mostrará nada, isso será feito pelo view.
 public class Estoque {
 	
-	// Tipo List<Fruta>
-	List<Fruta> estoqueFrutas;
+	List<Produto> estoqueProdutos;
 	
-	// Apenas instância o estoqueFrutas, não é tãooooo necessário
 	public Estoque() {
-		estoqueFrutas = new ArrayList<>();
+		estoqueProdutos = new ArrayList<>();
 		
 	}
 	
-	public List<Fruta> getEstoqueFruta() {
-		return estoqueFrutas;
+	public List<Produto> getEstoqueProdutos() {
+		return estoqueProdutos;
 	}
 	
-	public void setEstoqueFruta(List<Fruta> estoqueFrutas) {
-		this.estoqueFrutas = estoqueFrutas;
+	public void setEstoqueFruta(List<Produto> estoqueProdutos) {
+		this.estoqueProdutos = estoqueProdutos;
 	}
 	
-	// O método que vai fazer todas as coisas que o menu mostra
-	public void gerenciarEstoque(int opcaoMenu, Atendente atendente, Fruta fruta) {
+	public void gerenciarEstoque(int opcaoMenu, Atendente atendente, Produto fruta, Produto verdura) {
 		
-		// O case usado é apenas um case que não necessita de break
 		switch(opcaoMenu) {
-		// Adicionar fruta ao estoque
 		case 1 -> {
-				String nomeFruta = atendente.definirNome(); // Envia para o método do atendente, e armazena o retorno do método.
+				int escolhaCadastro = atendente.escolhaCadastro();
 				
-				double precoFruta = atendente.definirPreco();
+				switch(escolhaCadastro) {
+				case 1 -> {
+						Produto f = atendente.cadastrarFruta(fruta);
+						estoqueProdutos.add(f);
+					}
 				
-				int qtdFruta = atendente.definirEstoque();
+				case 2 -> {
+						Produto v = atendente.cadastrarVerdura(verdura);
+						estoqueProdutos.add(v);
+					}
 				
-				double pesoFruta = atendente.definirPeso();
-
-				// Adiciona os valores no construtor da fruta, instânciando a fruta passada anteriormente por parâmetro
-				fruta = new Fruta(nomeFruta, precoFruta, qtdFruta, pesoFruta);
-				
-				// Coloca a fruta no estoque
-				estoqueFrutas.add(fruta);
+				default -> {
+						atendente.erroDigitacao();
+					}
+				}
 			}
 		
-		// Mostrar todas as frutas armazenadas no Estoque estoqueFrutas
 		case 2 -> {
-				// Usa o atendente para chamar o método listarFrutas
-				// passando o parâmetro da lista
-				atendente.listarFrutas(estoqueFrutas);
-			}
+				if(estoqueProdutos.isEmpty()) {
+					atendente.erroListaVazia();
+					
+				}else {
+					int escolhaListar = atendente.listarEscolha();
+					
+					switch(escolhaListar) {
+					case 1 -> {
+							for(Produto i : estoqueProdutos) {
+								if(i instanceof Fruta f) {
+									atendente.listarFrutas(f);
+									
+							}
+						}
+					}
+					case 2 -> {
+							for(Produto i : estoqueProdutos) {
+								if(i instanceof Verdura v) {
+									atendente.listarVerduras(v);
+									
+								}
+							}
+						}
+					}
+				}
+		}
 		
-		// Remover uma fruta específicada pelo índice
 		case 3 -> {
-				int removerFruta = atendente.removerFrutas(estoqueFrutas); // Leva para o método do atendente e armazena o valor retornado
-				estoqueFrutas.remove(removerFruta); // O valor retornado é utilizado para remover a fruta específica do estoqueFrutas
+			
+				if(estoqueProdutos.isEmpty()) {
+					atendente.erroListaVazia();
+					
+				}else {
+					int escolhaRemover = atendente.escolhaRemover();
+					
+					switch(escolhaRemover) {
+					case 1 -> {
+							boolean encontrado = false;
+							int indiceRemove = atendente.removerFruta(estoqueProdutos);
+							
+							for(int valor = 0; valor < estoqueProdutos.size(); valor++) {
+								if(indiceRemove == valor) {
+									estoqueProdutos.remove(indiceRemove);
+									encontrado = true;
+								}
+							}
+							if(encontrado == false) {
+								atendente.erroNotFound();
+							}
+						}
+					
+					case 2 -> {
+							boolean encontrado = false;
+							int indiceRemove = atendente.removerFruta(estoqueProdutos);
+							
+							for(int valor = 0; valor < estoqueProdutos.size(); valor++) {
+								if(indiceRemove == valor) {
+									estoqueProdutos.remove(indiceRemove);
+									encontrado = true;
+								}
+							}
+							if(encontrado == false) {
+								atendente.erroNotFound();
+							}
+						}
+					}
+				}
 			}
 		
-		// Só sai do programa
 		case 0 -> {
 				System.out.println("\nSaindo do programa...");
-				System.exit(0); // Isso é uma forma de sair do programa, retornando 0
+				System.exit(0);
+			}
+		
+		default -> {
+				atendente.erroDigitacao();
 			}
 		}
 		

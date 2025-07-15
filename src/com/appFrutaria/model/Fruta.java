@@ -24,4 +24,11 @@ public class Fruta extends Produto {
 		this.peso = peso;
 	}
 	
+	public String toString() {
+		return ("\nNome da fruta: " + nome
+				+ "\nPreço da fruta: " + preco
+				+ "\nQuantidade de frutas: " + quantidade
+				+ "\nPeso da fruta: " + peso);
+	}
+	
 }
