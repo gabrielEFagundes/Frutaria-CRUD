@@ -10,6 +10,8 @@ import java.util.ArrayList;
 public class Estoque {
 	
 	List<Produto> estoqueProdutos;
+	boolean encontrado = false; // para exclusão
+	int cont = 0; // também para exclusão
 	
 	public Estoque() {
 		estoqueProdutos = new ArrayList<>();
@@ -42,7 +44,7 @@ public class Estoque {
 					}
 				
 				default -> {
-						atendente.erroDigitacao();
+						atendente.erroNotFound();
 					}
 				}
 			}
@@ -55,7 +57,9 @@ public class Estoque {
 					int escolhaListar = atendente.listarEscolha();
 					
 					switch(escolhaListar) {
-					case 1 -> {
+					case 1 -> {		
+							atendente.listarFrutasTitle();
+							
 							for(Produto i : estoqueProdutos) {
 								if(i instanceof Fruta f) {
 									atendente.listarFrutas(f);
@@ -64,6 +68,8 @@ public class Estoque {
 						}
 					}
 					case 2 -> {
+							atendente.listarVerdurasTitle();
+						
 							for(Produto i : estoqueProdutos) {
 								if(i instanceof Verdura v) {
 									atendente.listarVerduras(v);
@@ -85,13 +91,22 @@ public class Estoque {
 					
 					switch(escolhaRemover) {
 					case 1 -> {
-							boolean encontrado = false;
 							int indiceRemove = atendente.removerFruta(estoqueProdutos);
 							
-							for(int valor = 0; valor < estoqueProdutos.size(); valor++) {
-								if(indiceRemove == valor) {
+							// Os índices mostrados começam em 1, mas os índices internos começam em 0
+							// Então teoricamente, se o usuário digitasse 1 com a intenção de remover
+							// o primeiro valor, ele removeria o segundo internamente
+							// Por isso, é diminuído 1 do valor digitado pelo usuário, para que o valor
+							// fique igualado com o valor interno do ArrayList
+							indiceRemove -= 1;
+							
+							for(int i = 0; i < estoqueProdutos.size(); i++) {
+								if(estoqueProdutos.get(i) instanceof Fruta && cont == indiceRemove) {
 									estoqueProdutos.remove(indiceRemove);
 									encontrado = true;
+									atendente.sucesso();
+								}else {
+									cont++;
 								}
 							}
 							if(encontrado == false) {
@@ -100,17 +115,33 @@ public class Estoque {
 						}
 					
 					case 2 -> {
-							boolean encontrado = false;
 							int indiceRemove = atendente.removerFruta(estoqueProdutos);
 							
-							for(int valor = 0; valor < estoqueProdutos.size(); valor++) {
-								if(indiceRemove == valor) {
+							indiceRemove -= 1;
+							
+							for(int i = 0; i < estoqueProdutos.size(); i++) {
+								if(estoqueProdutos.get(i) instanceof Verdura && cont == indiceRemove) {
 									estoqueProdutos.remove(indiceRemove);
 									encontrado = true;
+									atendente.sucesso();
+								}else {
+									cont++;
 								}
 							}
 							if(encontrado == false) {
 								atendente.erroNotFound();
+							}
+						}
+					
+					case 3 -> {
+							char confirma = atendente.confirmacao();
+							
+							if(confirma == 's' || confirma == 'S') {
+								estoqueProdutos.clear();
+								
+							}else {
+								atendente.cancelarAcao();
+								
 							}
 						}
 					}
@@ -123,10 +154,9 @@ public class Estoque {
 			}
 		
 		default -> {
-				atendente.erroDigitacao();
+				atendente.erroNotFound();
 			}
 		}
 		
 	}
-	
 }

@@ -25,10 +25,9 @@ public class Fruta extends Produto {
 	}
 	
 	public String toString() {
-		return ("\nNome da fruta: " + nome
-				+ "\nPreço da fruta: " + preco
-				+ "\nQuantidade de frutas: " + quantidade
-				+ "\nPeso da fruta: " + peso);
+		return String.format("| %-21s | %-15.2f | %-13d | %-13.2f |"
+					       + "\n+-------------------------------------------------------------------------+", 
+					       nome, preco, quantidade, peso);
 	}
 	
 }

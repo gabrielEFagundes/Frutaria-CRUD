@@ -9,9 +9,11 @@ import com.appFrutaria.model.*;
 // Faz APENAS a intereção com o usuário, note que é a única classe com Scanner
 public class Atendente {
 
-	public final String RESET = "\033[0m";
-	public final String VERDE = "\033[0;32m";
-	public final String AMARELO = "\033[1;33m";
+	public static final String RESET = "\033[0m";
+	public static final String VERDE = "\033[0;32m";
+	public static final String AMARELO = "\033[1;33m";
+	public static final String VERMELHO = "\033[0;31m";
+	public static final String CINZA = "\033[0;90m";
 	
 	Scanner scan;
 	
@@ -30,7 +32,7 @@ public class Atendente {
 	
 	public int menuPrincipal() {
 		
-		System.out.println("\n+----------- " + VERDE + "Frutaria Fagundes" + RESET + " --+"
+		System.out.print("\n+----------- " + VERDE + "Frutaria Fagundes" + RESET + " --+"
 						+ "\n|" + AMARELO + " 1- " + RESET + "Cadastrar produto           |"
 						+ "\n|" + AMARELO + " 2- " + RESET + "Listar produtos             |"
 						+ "\n|" + AMARELO + " 3- " + RESET + "Remover produtos            |"
@@ -106,9 +108,17 @@ public class Atendente {
 		return escolha;
 	}
 	
+	public void listarFrutasTitle() {
+		System.out.println("\n\n+-- NOME -------------- + -- PREÇO ------ + -- QTD ------ + -- PESO ------+");
+	}
+	
 	public void listarFrutas(Produto f) {
 		System.out.println(f);
 		
+	}
+	
+	public void listarVerdurasTitle() {
+		System.out.println("\n\n+-- NOME -------------- + -- PREÇO ------ + -- QTD ------ + -- TIPO ------+");
 	}
 	
 	public void listarVerduras(Produto v) {
@@ -116,9 +126,10 @@ public class Atendente {
 	}
 	
 	public int escolhaRemover() {
-		System.out.println("\nQual produto você quer remover?"
+		System.out.print("\nQual produto você quer remover?"
 				+ "\n1- Fruta"
 				+ "\n2- Verdura"
+				+ "\n3- Limpar Tudo " + VERMELHO + "(PERIGOSO)" + RESET
 				+ "\nSua escolha: ");
 		
 		int escolha = scan.nextInt();
@@ -131,21 +142,27 @@ public class Atendente {
 		int cont = 1;
 		System.out.println("");
 		
-		System.out.println("\nDigite o índice da fruta para remover: ");
+		System.out.print("\nDigite o índice da fruta para remover: ");
 		int nomeRemove = scan.nextInt();
-		
-		// Os índices mostrados começam em 1, mas os índices internos começam em 0
-		// Então teoricamente, se o usuário digitasse 1 com a intenção de remover
-		// o primeiro valor, ele removeria o segundo internamente
-		// Por isso, é diminuído 1 do valor digitado pelo usuário, para que o valor
-		// fique igualado com o valor interno do ArrayList
-		nomeRemove -= 1;
 		
 		return nomeRemove;
 	}
 	
-	public void erroDigitacao() {
-		System.err.println("\nErro! O digito não existe...");
+	public void sucesso() {
+		System.out.println(VERDE + "\n✓ Processo terminado com êxito!" + RESET);
+	}
+	
+	public char confirmacao() {
+		System.out.print("\nTêm certeza que quer fazer esta ação? Ela não pode ser desfeita! (s/n)"
+				+ "\n-> ");
+		
+		char confirma = scan.next().charAt(0);
+		
+		return confirma;
+	}
+	
+	public void cancelarAcao() {
+		System.out.println(AMARELO + "\nAção cancelada com êxito." + RESET);
 	}
 	
 	public void erroListaVazia() {

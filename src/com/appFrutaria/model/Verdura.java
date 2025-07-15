@@ -1,5 +1,7 @@
 package com.appFrutaria.model;
 
+import com.appFrutaria.view.Atendente;
+
 public class Verdura extends Produto {
 	
 	private String tipo;
@@ -23,12 +25,9 @@ public class Verdura extends Produto {
 	}
 	
 	public String toString() {
-		return ("\n+----------------------------------------+"
-			  + "\n| * Nome da verdura: " + nome
-			  + "\n| * Preço da verdura: " + preco
-			  + "\n| * Quantidade de verduras: " + quantidade
-			  + "\n| * Tipo da verdura: " + tipo
-			  + "\n+----------------------------------------+");
+		return String.format("| %-21s | %-15.2f | %-13d | %-13s |"
+			       + "\n+-------------------------------------------------------------------------+", 
+			       nome, preco, quantidade, tipo);
 	}
 
 }
