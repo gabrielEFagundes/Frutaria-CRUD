@@ -24,6 +24,7 @@ public class Verdura extends Produto {
 		return this.tipo;
 	}
 	
+	@Override
 	public String toString() {
 		return String.format("| %-21s | %-15.2f | %-13d | %-13s |"
 			       + "\n+-------------------------------------------------------------------------+", 

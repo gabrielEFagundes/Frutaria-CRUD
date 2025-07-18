@@ -11,7 +11,7 @@ public class Estoque {
 	
 	List<Produto> estoqueProdutos;
 	boolean encontrado = false; // para exclusão
-	int cont = 0; // também para exclusão
+	int cont = 0, indice = 0; // também para exclusão
 	
 	public Estoque() {
 		estoqueProdutos = new ArrayList<>();
@@ -91,6 +91,14 @@ public class Estoque {
 					
 					switch(escolhaRemover) {
 					case 1 -> {
+							indice = 1;
+							atendente.listarRemoverTitle();
+							for(Produto i : estoqueProdutos) {
+								if(i instanceof Fruta f) {
+									atendente.listarRemoverFrutas(f, indice);
+									indice++;
+								}
+							}
 							int indiceRemove = atendente.removerFruta(estoqueProdutos);
 							
 							// Os índices mostrados começam em 1, mas os índices internos começam em 0
@@ -115,6 +123,14 @@ public class Estoque {
 						}
 					
 					case 2 -> {
+							indice = 1;
+							atendente.listarRemoverTitle();
+							for(Produto i : estoqueProdutos) {
+								if(i instanceof Verdura v) {
+									atendente.listarRemoverVerdura(v, indice);
+									indice++;
+								}
+							}
 							int indiceRemove = atendente.removerFruta(estoqueProdutos);
 							
 							indiceRemove -= 1;

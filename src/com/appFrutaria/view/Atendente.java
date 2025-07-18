@@ -137,12 +137,23 @@ public class Atendente {
 		return escolha;
 	}
 	
+	public void listarRemoverTitle() {
+		System.out.print("\n\n+-- ID ---- + -- NOME ------------+");
+	}
+	
+	public void listarRemoverFrutas(Fruta f, int cont) {
+		System.out.printf("\n| %-9d | %-19s |"
+					  + "\n+---------------------------------+", cont, f.getNome());
+	}
+	
+	public void listarRemoverVerdura(Verdura v, int cont) {
+		System.out.printf("\n| %-9d | %-19s |"
+				  + "\n+---------------------------------+", cont, v.getNome());
+	}
+	
 	public int removerFruta(List<Produto> estoqueProdutos) {
 		
-		int cont = 1;
-		System.out.println("");
-		
-		System.out.print("\nDigite o índice da fruta para remover: ");
+		System.out.print("\n\nDigite o índice da fruta para remover: ");
 		int nomeRemove = scan.nextInt();
 		
 		return nomeRemove;

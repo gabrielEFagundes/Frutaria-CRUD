@@ -24,6 +24,7 @@ public class Fruta extends Produto {
 		this.peso = peso;
 	}
 	
+	@Override
 	public String toString() {
 		return String.format("| %-21s | %-15.2f | %-13d | %-13.2f |"
 					       + "\n+-------------------------------------------------------------------------+", 
