@@ -30,7 +30,7 @@ public class Estoque {
 		
 		switch(opcaoMenu) {
 		case 1 -> {
-				int escolhaCadastro = atendente.escolhaCadastro();
+				int escolhaCadastro = atendente.escolhaGeral();
 				
 				switch(escolhaCadastro) {
 				case 1 -> {
@@ -54,7 +54,7 @@ public class Estoque {
 					atendente.erroListaVazia();
 					
 				}else {
-					int escolhaListar = atendente.listarEscolha();
+					int escolhaListar = atendente.escolhaGeral();
 					
 					switch(escolhaListar) {
 					case 1 -> {		
@@ -92,26 +92,26 @@ public class Estoque {
 					switch(escolhaRemover) {
 					case 1 -> {
 							indice = 1;
-							atendente.listarRemoverTitle();
+							atendente.listarTitleSimples();
 							for(Produto i : estoqueProdutos) {
 								if(i instanceof Fruta f) {
-									atendente.listarRemoverFrutas(f, indice);
+									atendente.listarFrutasSimples(f, indice);
 									indice++;
 								}
 							}
-							int indiceRemove = atendente.removerFruta(estoqueProdutos);
+							int indiceRemove = atendente.removerIndice();
 							
 							// Os índices mostrados começam em 1, mas os índices internos começam em 0
 							// Então teoricamente, se o usuário digitasse 1 com a intenção de remover
 							// o primeiro valor, ele removeria o segundo internamente
 							// Por isso, é diminuído 1 do valor digitado pelo usuário, para que o valor
 							// fique igualado com o valor interno do ArrayList
-							indiceRemove -= 1;
+							indiceRemove--;
 							
 							for(int i = 0; i < estoqueProdutos.size(); i++) {
 								if(estoqueProdutos.get(i) instanceof Fruta && cont == indiceRemove) {
-									estoqueProdutos.remove(indiceRemove);
 									encontrado = true;
+									estoqueProdutos.remove(indiceRemove);
 									atendente.sucesso();
 								}else {
 									cont++;
@@ -124,21 +124,21 @@ public class Estoque {
 					
 					case 2 -> {
 							indice = 1;
-							atendente.listarRemoverTitle();
+							atendente.listarTitleSimples();
 							for(Produto i : estoqueProdutos) {
 								if(i instanceof Verdura v) {
-									atendente.listarRemoverVerdura(v, indice);
+									atendente.listarVerduraSimples(v, indice);
 									indice++;
 								}
 							}
-							int indiceRemove = atendente.removerFruta(estoqueProdutos);
+							int indiceRemove = atendente.removerIndice();
 							
-							indiceRemove -= 1;
+							indiceRemove--;
 							
 							for(int i = 0; i < estoqueProdutos.size(); i++) {
 								if(estoqueProdutos.get(i) instanceof Verdura && cont == indiceRemove) {
-									estoqueProdutos.remove(indiceRemove);
 									encontrado = true;
+									estoqueProdutos.remove(indiceRemove);
 									atendente.sucesso();
 								}else {
 									cont++;
@@ -162,6 +162,78 @@ public class Estoque {
 						}
 					}
 				}
+			}
+		
+		case 4 -> {
+				if(estoqueProdutos.isEmpty()) {
+					atendente.erroListaVazia();
+					
+				}else {
+					int escolhaEdicao = atendente.escolhaGeral();
+					
+					switch(escolhaEdicao) {
+					case 1 -> {
+							indice = 1;
+							
+							if(!estoqueProdutos.isEmpty()) {
+								atendente.listarTitleSimples();
+								for(Produto i : estoqueProdutos) {
+									if(i instanceof Fruta f) {
+										atendente.listarFrutasSimples(f, indice);
+										indice++;
+									}
+								}
+							
+								int indiceEdicao = atendente.editarIndice();
+								indiceEdicao--;
+								
+								for(int i = 0; i < estoqueProdutos.size(); i++) {
+									if(estoqueProdutos.get(i) instanceof Fruta && cont == indiceEdicao) {
+										encontrado = true;
+										Produto f = atendente.editarFruta(fruta);
+										estoqueProdutos.set(indiceEdicao, f);
+										atendente.sucesso();
+										
+									}else {
+										cont++;
+									}
+								}
+								if(encontrado == false) {
+									atendente.erroNotFound();
+								}
+							}else {
+								atendente.erroListaVazia();
+							}
+						}
+					
+					case 2 -> {
+							indice = 1;
+							atendente.listarTitleSimples();
+							for(Produto i : estoqueProdutos) {
+								if(i instanceof Verdura v) {
+									atendente.listarVerduraSimples(v, indice);
+									indice++;
+								}
+							}
+							
+							int indiceEdicao = atendente.editarIndice();
+							indiceEdicao--;
+							
+							for(int i = 0; i < estoqueProdutos.size(); i++) {
+								if(estoqueProdutos.get(i) instanceof Verdura && cont == indiceEdicao) {
+									Produto v = atendente.editarVerdura(verdura);
+									estoqueProdutos.set(indiceEdicao, v);
+								
+								}else {
+									cont++;
+								}
+							}
+						}
+					
+					}
+					
+				}
+				
 			}
 		
 		case 0 -> {

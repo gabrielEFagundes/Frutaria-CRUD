@@ -36,6 +36,7 @@ public class Atendente {
 						+ "\n|" + AMARELO + " 1- " + RESET + "Cadastrar produto           |"
 						+ "\n|" + AMARELO + " 2- " + RESET + "Listar produtos             |"
 						+ "\n|" + AMARELO + " 3- " + RESET + "Remover produtos            |"
+						+ "\n|" + AMARELO + " 4- " + RESET + "Editar produtos             |"
 						+ "\n|" + AMARELO + " 0- " + RESET + "Sair                        |"
 						+ "\n+--============================--+"
 						+ "\n Sua escolha: ");
@@ -46,10 +47,10 @@ public class Atendente {
 		
 	}
 	
-	public int escolhaCadastro() {
-		System.out.print("\nO que você deseja cadastrar?"
-				+ "\n1- Fruta"
-				+ "\n2- Verdura"
+	public int escolhaGeral() {
+		System.out.print("\nQual dos produtos?"
+				+ "\n1- Frutas"
+				+ "\n2- Verduras"
 				+ "\nSua escolha: ");
 		
 		int escolha = scan.nextInt();
@@ -97,17 +98,6 @@ public class Atendente {
 		return verdura;
 	}
 	
-	public int listarEscolha() {
-		System.out.print("\nO que você deseja listar?"
-				+ "\n1- Frutas"
-				+ "\n2- Verduras"
-				+ "\nSua escolha: ");
-		
-		int escolha = scan.nextInt();
-		
-		return escolha;
-	}
-	
 	public void listarFrutasTitle() {
 		System.out.println("\n\n+-- NOME -------------- + -- PREÇO ------ + -- QTD ------ + -- PESO ------+");
 	}
@@ -137,26 +127,73 @@ public class Atendente {
 		return escolha;
 	}
 	
-	public void listarRemoverTitle() {
+	public void listarTitleSimples() {
 		System.out.print("\n\n+-- ID ---- + -- NOME ------------+");
 	}
 	
-	public void listarRemoverFrutas(Fruta f, int cont) {
+	public void listarFrutasSimples(Fruta f, int cont) {
 		System.out.printf("\n| %-9d | %-19s |"
 					  + "\n+---------------------------------+", cont, f.getNome());
 	}
 	
-	public void listarRemoverVerdura(Verdura v, int cont) {
+	public void listarVerduraSimples(Verdura v, int cont) {
 		System.out.printf("\n| %-9d | %-19s |"
 				  + "\n+---------------------------------+", cont, v.getNome());
 	}
 	
-	public int removerFruta(List<Produto> estoqueProdutos) {
+	public int removerIndice() {
 		
 		System.out.print("\n\nDigite o índice da fruta para remover: ");
 		int nomeRemove = scan.nextInt();
 		
 		return nomeRemove;
+	}
+	
+	public int editarIndice() {
+		System.out.print("\n\nDigite o índice da fruta para editar: ");
+		int nomeEdita = scan.nextInt();
+		
+		return nomeEdita;
+	}
+	
+	public Produto editarFruta(Produto fruta) {
+		scan.nextLine();
+		
+		System.out.print("\nDigite o novo nome da fruta: ");
+		String novoNome = scan.nextLine();
+		
+		System.out.print("\nDigite o novo preço da fruta: ");
+		double novoPreco = scan.nextDouble();
+		
+		System.out.print("\nDigite a nova quantidade da fruta: ");
+		int novaQtd = scan.nextInt();
+		
+		System.out.print("\nDigite o novo peso da fruta: ");
+		double novoPeso = scan.nextDouble();
+		
+		fruta = new Fruta(novoNome, novoPreco, novaQtd, novoPeso);
+		
+		return fruta;
+	}
+	
+	public Produto editarVerdura(Produto verdura) {
+		scan.nextLine();
+		
+		System.out.print("\nDigite o novo nome da verdura: ");
+		String novoNome = scan.nextLine();
+		
+		System.out.print("\nDigite o novo preço da verdura: ");
+		double novoPreco = scan.nextDouble();
+		
+		System.out.print("\nDigite a nova quantidade da verdura: ");
+		int novaQtd = scan.nextInt();
+		
+		System.out.print("\nDigite o novo tipo da verdura: ");
+		String novoTipo = scan.next();
+		
+		verdura = new Verdura(novoNome, novoPreco, novaQtd, novoTipo);
+		
+		return verdura;
 	}
 	
 	public void sucesso() {
