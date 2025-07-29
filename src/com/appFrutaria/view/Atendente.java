@@ -221,4 +221,8 @@ public class Atendente {
 		System.err.println("\nErro! O valor não foi encontrado...");
 	}
 	
+	public void erroCadastro() {
+		System.err.println("\nErro! Não foi encontrado nenhum valor cadastrado...");
+	}
+	
 }

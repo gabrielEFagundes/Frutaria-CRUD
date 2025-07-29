@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public class Estoque {
 	
 	List<Produto> estoqueProdutos;
-	boolean encontrado = false; // para exclusão
-	int cont = 0, indice = 0; // também para exclusão
+	boolean encontrado = false; // para exclusão / edição
+	int cont = 0, indice = 0; // também para exclusão / edição
 	
 	public Estoque() {
 		estoqueProdutos = new ArrayList<>();
@@ -63,9 +63,14 @@ public class Estoque {
 							for(Produto i : estoqueProdutos) {
 								if(i instanceof Fruta f) {
 									atendente.listarFrutas(f);
+									cont++;
 									
+								}
 							}
-						}
+							
+							if(cont == 0) {
+								atendente.erroCadastro();
+							}
 					}
 					case 2 -> {
 							atendente.listarVerdurasTitle();
@@ -73,8 +78,13 @@ public class Estoque {
 							for(Produto i : estoqueProdutos) {
 								if(i instanceof Verdura v) {
 									atendente.listarVerduras(v);
+									cont++;
 									
 								}
+							}
+							
+							if(cont == 0) {
+								atendente.erroCadastro();
 							}
 						}
 					}
@@ -97,8 +107,15 @@ public class Estoque {
 								if(i instanceof Fruta f) {
 									atendente.listarFrutasSimples(f, indice);
 									indice++;
+									cont++;
 								}
 							}
+							
+							if(cont == 0) {
+								atendente.erroCadastro();
+								break;
+							}
+							
 							int indiceRemove = atendente.removerIndice();
 							
 							// Os índices mostrados começam em 1, mas os índices internos começam em 0
@@ -109,17 +126,17 @@ public class Estoque {
 							indiceRemove--;
 							
 							for(int i = 0; i < estoqueProdutos.size(); i++) {
-								if(estoqueProdutos.get(i) instanceof Fruta && cont == indiceRemove) {
+								if(estoqueProdutos.get(i) instanceof Fruta && i == indiceRemove) {
 									encontrado = true;
 									estoqueProdutos.remove(indiceRemove);
 									atendente.sucesso();
-								}else {
-									cont++;
 								}
 							}
+							
 							if(encontrado == false) {
 								atendente.erroNotFound();
 							}
+							cont = 0;
 						}
 					
 					case 2 -> {
@@ -129,24 +146,31 @@ public class Estoque {
 								if(i instanceof Verdura v) {
 									atendente.listarVerduraSimples(v, indice);
 									indice++;
+									cont++;
 								}
 							}
+							
+							if(cont == 0) {
+								atendente.erroCadastro();
+								break;
+							}
+							
 							int indiceRemove = atendente.removerIndice();
 							
 							indiceRemove--;
 							
 							for(int i = 0; i < estoqueProdutos.size(); i++) {
-								if(estoqueProdutos.get(i) instanceof Verdura && cont == indiceRemove) {
+								if(estoqueProdutos.get(i) instanceof Verdura && i == indiceRemove) {
 									encontrado = true;
 									estoqueProdutos.remove(indiceRemove);
 									atendente.sucesso();
-								}else {
-									cont++;
 								}
 							}
+							
 							if(encontrado == false) {
 								atendente.erroNotFound();
 							}
+							cont = 0;
 						}
 					
 					case 3 -> {
@@ -176,64 +200,70 @@ public class Estoque {
 							indice = 1;
 							atendente.listarTitleSimples();
 							for(Produto i : estoqueProdutos) {
-								if(i instanceof Fruta f && !estoqueProdutos.isEmpty()) {
+								if(i instanceof Fruta f) {
 									atendente.listarFrutasSimples(f, indice);
 									indice++;
-								}else {
-									atendente.erroListaVazia();
-									break;
-								}
-							}
-							// ainda to descobrindo como não mostrar nada
-							// ou só o erro caso não tenha valores cadastrados :P
-							
-							int indiceEdicao = atendente.editarIndice();
-							indiceEdicao--;
-							
-							for(int i = 0; i < estoqueProdutos.size(); i++) {
-								if(estoqueProdutos.get(i) instanceof Fruta && cont == indiceEdicao) {
-									encontrado = true;
-									Produto f = atendente.editarFruta(fruta);
-									estoqueProdutos.set(indiceEdicao, f);
-									atendente.sucesso();
-									
-								}else {
 									cont++;
 								}
 							}
-							if(encontrado == false) {
-								atendente.erroNotFound();
+
+							if(cont == 0) {
+								atendente.erroCadastro();
+								break;
+								
+							}else {
+							
+								int indiceEdicao = atendente.editarIndice();
+								indiceEdicao--;
+								
+								for(int i = 0; i < estoqueProdutos.size(); i++) {
+									if(estoqueProdutos.get(i) instanceof Fruta && i == indiceEdicao) {
+										encontrado = true;
+										Produto f = atendente.editarFruta(fruta);
+										estoqueProdutos.set(indiceEdicao, f);
+										atendente.sucesso();
+									}
+								}
+								
+								if(encontrado == false) {
+									atendente.erroNotFound();
+								}
 							}
+							// só pra voltar ao valor original após este case
+							cont = 0;
 						}
 					
 					case 2 -> {
 							indice = 1;
 							atendente.listarTitleSimples();
 							for(Produto i : estoqueProdutos) {
-								if(i instanceof Verdura v && !estoqueProdutos.isEmpty()) {
+								if(i instanceof Verdura v) {
 									atendente.listarVerduraSimples(v, indice);
 									indice++;
-								}else {
-									atendente.erroListaVazia();
+									cont++;
 								}
+							}
+							
+							if(cont == 0) {
+								atendente.erroCadastro();
+								break;
 							}
 							
 							int indiceEdicao = atendente.editarIndice();
 							indiceEdicao--;
 							
 							for(int i = 0; i < estoqueProdutos.size(); i++) {
-								if(estoqueProdutos.get(i) instanceof Verdura && cont == indiceEdicao) {
+								if(estoqueProdutos.get(i) instanceof Verdura && i == indiceEdicao) {
 									encontrado = true;
 									Produto v = atendente.editarVerdura(verdura);
 									estoqueProdutos.set(indiceEdicao, v);
-								
-								}else {
-									cont++;
 								}
 							}
+							
 							if(encontrado == false) {
 								atendente.erroNotFound();
 							}
+							cont = 0;
 						}
 					}
 				}
