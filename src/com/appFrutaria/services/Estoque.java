@@ -174,35 +174,35 @@ public class Estoque {
 					switch(escolhaEdicao) {
 					case 1 -> {
 							indice = 1;
+							atendente.listarTitleSimples();
+							for(Produto i : estoqueProdutos) {
+								if(i instanceof Fruta f && !estoqueProdutos.isEmpty()) {
+									atendente.listarFrutasSimples(f, indice);
+									indice++;
+								}else {
+									atendente.erroListaVazia();
+									break;
+								}
+							}
+							// ainda to descobrindo como não mostrar nada
+							// ou só o erro caso não tenha valores cadastrados :P
 							
-							if(!estoqueProdutos.isEmpty()) {
-								atendente.listarTitleSimples();
-								for(Produto i : estoqueProdutos) {
-									if(i instanceof Fruta f) {
-										atendente.listarFrutasSimples(f, indice);
-										indice++;
-									}
-								}
+							int indiceEdicao = atendente.editarIndice();
+							indiceEdicao--;
 							
-								int indiceEdicao = atendente.editarIndice();
-								indiceEdicao--;
-								
-								for(int i = 0; i < estoqueProdutos.size(); i++) {
-									if(estoqueProdutos.get(i) instanceof Fruta && cont == indiceEdicao) {
-										encontrado = true;
-										Produto f = atendente.editarFruta(fruta);
-										estoqueProdutos.set(indiceEdicao, f);
-										atendente.sucesso();
-										
-									}else {
-										cont++;
-									}
+							for(int i = 0; i < estoqueProdutos.size(); i++) {
+								if(estoqueProdutos.get(i) instanceof Fruta && cont == indiceEdicao) {
+									encontrado = true;
+									Produto f = atendente.editarFruta(fruta);
+									estoqueProdutos.set(indiceEdicao, f);
+									atendente.sucesso();
+									
+								}else {
+									cont++;
 								}
-								if(encontrado == false) {
-									atendente.erroNotFound();
-								}
-							}else {
-								atendente.erroListaVazia();
+							}
+							if(encontrado == false) {
+								atendente.erroNotFound();
 							}
 						}
 					
@@ -210,9 +210,11 @@ public class Estoque {
 							indice = 1;
 							atendente.listarTitleSimples();
 							for(Produto i : estoqueProdutos) {
-								if(i instanceof Verdura v) {
+								if(i instanceof Verdura v && !estoqueProdutos.isEmpty()) {
 									atendente.listarVerduraSimples(v, indice);
 									indice++;
+								}else {
+									atendente.erroListaVazia();
 								}
 							}
 							
@@ -221,6 +223,7 @@ public class Estoque {
 							
 							for(int i = 0; i < estoqueProdutos.size(); i++) {
 								if(estoqueProdutos.get(i) instanceof Verdura && cont == indiceEdicao) {
+									encontrado = true;
 									Produto v = atendente.editarVerdura(verdura);
 									estoqueProdutos.set(indiceEdicao, v);
 								
@@ -228,12 +231,12 @@ public class Estoque {
 									cont++;
 								}
 							}
+							if(encontrado == false) {
+								atendente.erroNotFound();
+							}
 						}
-					
 					}
-					
 				}
-				
 			}
 		
 		case 0 -> {
