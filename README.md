@@ -21,10 +21,10 @@ Além disso, o projeto serve para exercitar o **princípio da Responsabilidade �
 
 ## ✨ Funcionalidades
 
-- <span style="color:#ff006e;">Adicionar</span> novas frutas
-- <span style="color:#8338ec;">Listar</span> todas as frutas disponíveis
-- <span style="color:#3a86ff;">Editar</span> informações das frutas `(EM DESENVOLVIMENTO)`
-- <span style="color:#fb5607;">Remover</span> frutas indesejadas
+- <span style="color:#ff006e;">Adicionar</span> novas frutas `✅`
+- <span style="color:#8338ec;">Listar</span> todas as frutas disponíveis `✅`
+- <span style="color:#3a86ff;">Editar</span> informações das frutas `✅`
+- <span style="color:#fb5607;">Remover</span> frutas indesejadas `✅`
 
 ---
 
