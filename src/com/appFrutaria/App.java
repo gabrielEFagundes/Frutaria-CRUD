@@ -18,7 +18,6 @@ public class App {
 		// Variável apenas para o loop
 		int opcaoMenu = 0;
 		
-		
 		do {
 			// Guarda o valor retornado lá do Atendente na variável
 			opcaoMenu = atendente.menuPrincipal();

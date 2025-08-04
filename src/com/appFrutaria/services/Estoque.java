@@ -26,21 +26,28 @@ public class Estoque {
 		this.estoqueProdutos = estoqueProdutos;
 	}
 	
-	public void gerenciarEstoque(int opcaoMenu, Atendente atendente, Produto fruta, Produto verdura) {
+	public void gerenciarEstoque(Integer opcaoMenu, Atendente atendente, Produto fruta, Produto verdura) {
 		
 		switch(opcaoMenu) {
 		case 1 -> {
-				int escolhaCadastro = atendente.escolhaGeral();
+				Integer escolhaCadastro = atendente.escolhaGeral();
+				
+				if(escolhaCadastro == null) {
+					return;
+					
+				}
 				
 				switch(escolhaCadastro) {
 				case 1 -> {
 						Produto f = atendente.cadastrarFruta(fruta);
 						estoqueProdutos.add(f);
+						atendente.sucesso();
 					}
 				
 				case 2 -> {
 						Produto v = atendente.cadastrarVerdura(verdura);
 						estoqueProdutos.add(v);
+						atendente.sucesso();
 					}
 				
 				default -> {
@@ -54,10 +61,14 @@ public class Estoque {
 					atendente.erroListaVazia();
 					
 				}else {
-					int escolhaListar = atendente.escolhaGeral();
+					Integer escolhaListar = atendente.escolhaGeral();
+					
+					if(escolhaListar == null) {
+						return;
+					}
 					
 					switch(escolhaListar) {
-					case 1 -> {		
+					case 1 -> {
 							atendente.listarFrutasTitle();
 							
 							for(Produto i : estoqueProdutos) {
@@ -72,6 +83,7 @@ public class Estoque {
 								atendente.erroCadastro();
 							}
 					}
+					
 					case 2 -> {
 							atendente.listarVerdurasTitle();
 						
@@ -87,6 +99,10 @@ public class Estoque {
 								atendente.erroCadastro();
 							}
 						}
+					
+					default -> {
+							atendente.erroNotFound();
+						}
 					}
 				}
 		}
@@ -97,7 +113,11 @@ public class Estoque {
 					atendente.erroListaVazia();
 					
 				}else {
-					int escolhaRemover = atendente.escolhaRemover();
+					Integer escolhaRemover = atendente.escolhaRemover();
+					
+					if(escolhaRemover == null) {
+						return;
+					}
 					
 					switch(escolhaRemover) {
 					case 1 -> {
@@ -184,6 +204,10 @@ public class Estoque {
 								
 							}
 						}
+					
+					default -> {
+							atendente.erroNotFound();
+						}
 					}
 				}
 			}
@@ -193,7 +217,11 @@ public class Estoque {
 					atendente.erroListaVazia();
 					
 				}else {
-					int escolhaEdicao = atendente.escolhaGeral();
+					Integer escolhaEdicao = atendente.escolhaGeral();
+					
+					if(escolhaEdicao == null) {
+						return;
+					}
 					
 					switch(escolhaEdicao) {
 					case 1 -> {
@@ -264,6 +292,10 @@ public class Estoque {
 								atendente.erroNotFound();
 							}
 							cont = 0;
+						}
+					
+					default -> {
+							atendente.erroNotFound();
 						}
 					}
 				}

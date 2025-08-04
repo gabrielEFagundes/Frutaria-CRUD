@@ -1,6 +1,6 @@
 package com.appFrutaria.view;
+import com.appFrutaria.helper.Validator;
 
-import java.util.List;
 import java.util.Scanner;
 
 import com.appFrutaria.model.*;
@@ -9,11 +9,10 @@ import com.appFrutaria.model.*;
 // Faz APENAS a intereção com o usuário, note que é a única classe com Scanner
 public class Atendente {
 
-	public static final String RESET = "\033[0m";
-	public static final String VERDE = "\033[0;32m";
-	public static final String AMARELO = "\033[1;33m";
-	public static final String VERMELHO = "\033[0;31m";
-	public static final String CINZA = "\033[0;90m";
+	public static final String RESET = "\033[0m", VERDE = "\033[0;32m", AMARELO = "\033[1;33m", VERMELHO = "\033[1;31m", CINZA = "\033[0;90m";
+	
+	private Integer valorRetornado, valorFinal;
+	private String escolha;
 	
 	Scanner scan;
 	
@@ -30,32 +29,40 @@ public class Atendente {
 		return scan;
 	}
 	
-	public int menuPrincipal() {
+	public Integer menuPrincipal() {
 		
-		System.out.print("\n+----------- " + VERDE + "Frutaria Fagundes" + RESET + " --+"
-						+ "\n|" + AMARELO + " 1- " + RESET + "Cadastrar produto           |"
-						+ "\n|" + AMARELO + " 2- " + RESET + "Listar produtos             |"
-						+ "\n|" + AMARELO + " 3- " + RESET + "Remover produtos            |"
-						+ "\n|" + AMARELO + " 4- " + RESET + "Editar produtos             |"
-						+ "\n|" + AMARELO + " 0- " + RESET + "Sair                        |"
-						+ "\n+--============================--+"
-						+ "\n Sua escolha: ");
-		
-		int escolhaMenu = scan.nextInt();
-		
-		return escolhaMenu;
-		
+		while(valorRetornado == null) {
+			System.out.print("\n+----------- " + VERDE + "Frutaria Fagundes" + RESET + " --+"
+							+ "\n|" + AMARELO + " 1- " + RESET + "Cadastrar produto           |"
+							+ "\n|" + AMARELO + " 2- " + RESET + "Listar produtos             |"
+							+ "\n|" + AMARELO + " 3- " + RESET + "Remover produtos            |"
+							+ "\n|" + AMARELO + " 4- " + RESET + "Editar produtos             |"
+							+ "\n|" + AMARELO + " 0- " + RESET + "Sair                        |"
+							+ "\n+--============================--+"
+							+ "\n Sua escolha: ");
+			
+			escolha = scan.next();
+			
+			valorRetornado = Validator.validarEntrada(escolha);
+			valorFinal = valorRetornado;
+		}
+		valorRetornado = null;
+		return valorFinal;
 	}
 	
-	public int escolhaGeral() {
+	public Integer escolhaGeral() {
 		System.out.print("\nQual dos produtos?"
 				+ "\n1- Frutas"
 				+ "\n2- Verduras"
 				+ "\nSua escolha: ");
 		
-		int escolha = scan.nextInt();
+		escolha = scan.next();
 		
-		return escolha;
+		valorRetornado = Validator.validarEntrada(escolha);
+		valorFinal = valorRetornado;
+		
+		valorRetornado = null;
+		return valorFinal;
 	}
 	
 	public Produto cadastrarFruta(Produto fruta) {
@@ -115,16 +122,20 @@ public class Atendente {
 		System.out.println(v);
 	}
 	
-	public int escolhaRemover() {
+	public Integer escolhaRemover() {
 		System.out.print("\nQual produto você quer remover?"
 				+ "\n1- Fruta"
 				+ "\n2- Verdura"
 				+ "\n3- Limpar Tudo " + VERMELHO + "(PERIGOSO)" + RESET
 				+ "\nSua escolha: ");
 		
-		int escolha = scan.nextInt();
+		escolha = scan.next();
 		
-		return escolha;
+		valorRetornado = Validator.validarEntrada(escolha);
+		valorFinal = valorRetornado;
+		
+		valorRetornado = null;
+		return valorFinal;
 	}
 	
 	public void listarTitleSimples() {
@@ -214,15 +225,18 @@ public class Atendente {
 	}
 	
 	public void erroListaVazia() {
-		System.err.println("\nErro! A lista parece estar vazia...");
+		System.out.print(VERMELHO + "\nErro! A lista parece estar vazia..." + RESET);
 	}
 	
 	public void erroNotFound() {
-		System.err.println("\nErro! O valor não foi encontrado...");
+		System.out.print(VERMELHO + "\nErro! O valor não foi encontrado..." + RESET);
 	}
 	
 	public void erroCadastro() {
-		System.err.println("\nErro! Não foi encontrado nenhum valor cadastrado...");
+		System.out.print(VERMELHO + "\nErro! Não foi encontrado nenhum valor cadastrado..." + RESET);
 	}
 	
+	public void erroMismatch() {
+		System.out.print(VERMELHO + "\nErro! Digite um valor válido." + RESET);
+	}	
 }
