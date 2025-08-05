@@ -43,7 +43,7 @@ public class Atendente {
 			
 			escolha = scan.next();
 			
-			valorRetornado = Validator.validarEntrada(escolha);
+			valorRetornado = Validator.validarInteger(escolha);
 			valorFinal = valorRetornado;
 		}
 		valorRetornado = null;
@@ -58,7 +58,7 @@ public class Atendente {
 		
 		escolha = scan.next();
 		
-		valorRetornado = Validator.validarEntrada(escolha);
+		valorRetornado = Validator.validarInteger(escolha);
 		valorFinal = valorRetornado;
 		
 		valorRetornado = null;
@@ -131,7 +131,7 @@ public class Atendente {
 		
 		escolha = scan.next();
 		
-		valorRetornado = Validator.validarEntrada(escolha);
+		valorRetornado = Validator.validarInteger(escolha);
 		valorFinal = valorRetornado;
 		
 		valorRetornado = null;
