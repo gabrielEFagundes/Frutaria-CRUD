@@ -1,7 +1,5 @@
 package com.appFrutaria.model;
 
-// Aqui são as classes representantes dos atributos (dados)
-// Elas servem APENAS para ser algo, e não farão nenhum subprocesso ou interação
 public class Fruta extends Produto {
 	
 	private double peso;

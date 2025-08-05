@@ -1,6 +1,6 @@
 package com.appFrutaria.model;
 
-// Superclasse, a classe da qual o restante vai herdar
+// Superclasse, a classe da qual o restante vai herdar, essas são as classes representantes dos atributos
 public class Produto {
 	
 	protected String nome;

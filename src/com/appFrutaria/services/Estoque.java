@@ -5,8 +5,7 @@ import com.appFrutaria.view.Atendente;
 import java.util.List;
 import java.util.ArrayList;
 
-// O services fará todos os processos, como deletar ou adicionar elementos
-// Ele não mostrará nada, isso será feito pelo view.
+// O services fará todos os processos, mas não mostrará nada
 public class Estoque {
 	
 	List<Produto> estoqueProdutos;

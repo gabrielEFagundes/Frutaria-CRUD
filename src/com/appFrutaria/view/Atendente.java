@@ -6,7 +6,6 @@ import java.util.Scanner;
 import com.appFrutaria.model.*;
 
 // Aqui é a interação com o usuário
-// Faz APENAS a intereção com o usuário, note que é a única classe com Scanner
 public class Atendente {
 
 	public static final String RESET = "\033[0m", VERDE = "\033[0;32m", AMARELO = "\033[1;33m", VERMELHO = "\033[1;31m", CINZA = "\033[0;90m";
